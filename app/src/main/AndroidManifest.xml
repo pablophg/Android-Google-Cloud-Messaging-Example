@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="net.pablophg.pushnotifications" >
+
+    <!-- La aplicación puede recibir mensajes. -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <!-- Se necesita Internet para conectar a los servidores GCM de Google. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- GCM necesita una cuenta de Google. -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- Permite despertar la App en caso de llegar un mensaje. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".broadcastreceivers.MyReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="net.pablophg.pushnotifications" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".services.GCMIntentService" />
+
+    </application>
+
+</manifest>
